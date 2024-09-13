@@ -10,11 +10,11 @@ import {
 } from "@solana/wallet-adapter-react-ui";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import Airdrop from "./AirDrop";
+import UserBalance from "./UserBalance";
 
 export default function Wallet() {
   //useMemo(() => { /* expensive computation */ }, [dependency]);
-  const endpoint =
-    "https://solana-devnet.g.alchemy.com/v2/Ebs5VVFMeNeBW-6RiW7pZwFvXDlE5Evz";
+  const endpoint = "https://api.devnet.solana.com/";
 
   return (
     <ConnectionProvider endpoint={endpoint}>
@@ -32,6 +32,7 @@ export default function Wallet() {
             <WalletDisconnectButton />
           </div>
           <Airdrop />
+          <UserBalance />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
