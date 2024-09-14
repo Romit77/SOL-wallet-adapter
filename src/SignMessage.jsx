@@ -2,6 +2,7 @@ import { ed25519 } from "@noble/curves/ed25519";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useState } from "react";
 import bs58 from "bs58";
+import toast from "react-hot-toast";
 
 export default function SignMessage() {
   const { publicKey, signMessage } = useWallet();
@@ -9,18 +10,17 @@ export default function SignMessage() {
 
   async function sign() {
     try {
-      if (!publicKey) throw new Error("Wallet not connected!");
-      if (!signMessage)
-        throw new Error("Wallet does not support message signing!");
+      if (!publicKey) toast.error("Wallet not connected!");
+      if (!signMessage) toast.error("Wallet does not support message signing!");
       const encodedMessage = new TextEncoder().encode(message);
       const signature = await signMessage(encodedMessage);
 
       if (!ed25519.verify(signature, encodedMessage, publicKey.toBytes()))
         throw new Error("Error signing");
-      alert(`Success! Message signature: ${bs58.encode(signature)}`);
+      toast.success(`Success! Message signature: ${bs58.encode(signature)}`);
     } catch (error) {
       console.log(error);
-      alert(`Error: ${error.message}`);
+      toast.error(`Error: ${error.message}`);
     }
   }
 

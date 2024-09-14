@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import { Buffer } from "buffer"; // to fix nodejs error
 window.Buffer = Buffer;
+import toast from "react-hot-toast";
 
 export default function SendSol() {
   const wallet = useWallet();
@@ -27,9 +28,10 @@ export default function SendSol() {
         })
       );
       await wallet.sendTransaction(transaction, connection);
-      alert("Sent " + amount + " SOL");
+      toast.success("Sent " + amount + " SOL");
     } catch (e) {
       console.log(e);
+      toast.error("an error occured");
     }
   }
 
