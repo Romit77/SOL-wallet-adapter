@@ -11,6 +11,8 @@ import {
 import "@solana/wallet-adapter-react-ui/styles.css";
 import Airdrop from "./AirDrop";
 import UserBalance from "./UserBalance";
+import { Toaster } from "react-hot-toast";
+import SignMessage from "./SignMessage";
 
 export default function Wallet() {
   //useMemo(() => { /* expensive computation */ }, [dependency]);
@@ -31,8 +33,10 @@ export default function Wallet() {
             <WalletMultiButton />
             <WalletDisconnectButton />
           </div>
+          <Toaster />
           <Airdrop />
           <UserBalance />
+          <SignMessage />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
