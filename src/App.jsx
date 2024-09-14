@@ -13,6 +13,7 @@ import Airdrop from "./AirDrop";
 import UserBalance from "./UserBalance";
 import { Toaster } from "react-hot-toast";
 import SignMessage from "./SignMessage";
+import SendSol from "./SendSol";
 
 export default function Wallet() {
   //useMemo(() => { /* expensive computation */ }, [dependency]);
@@ -37,6 +38,7 @@ export default function Wallet() {
           <Airdrop />
           <UserBalance />
           <SignMessage />
+          <SendSol />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
