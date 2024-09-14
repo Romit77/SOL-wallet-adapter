@@ -34,5 +34,35 @@ Make sure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/solana-wallet-adapter-app.git
+   git clone https://github.com/your-username/SOL-wallet-adapter.git
    cd solana-wallet-adapter-app
+
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+
+3. To start the development server, run:
+
+   ```bash
+   npm run dev
+   # or
+   yarn run dev
+
+
+## Usage
+
+1. Connect Wallet: Use the "Connect Wallet" button to link your Solana wallet.
+2. Send SOL: Enter the recipient address and the amount to send, then click the "Send SOL" button.
+3. Airdrop SOL: Click the "Airdrop SOL" button to receive test SOL on the Devnet.
+4. Check Balance: View your current wallet balance after connecting your wallet.
+5. Sign Messages: Securely sign messages using your wallet for verification.
+
+## Screenshots
+
+![image](https://github.com/user-attachments/assets/e24b6ec7-30c4-4698-a7f6-2986df82f5ac)
+
+
+   
