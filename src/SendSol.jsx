@@ -1,5 +1,4 @@
-import { useConnection } from "@solana/wallet-adapter-react";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
   LAMPORTS_PER_SOL,
   PublicKey,
@@ -7,81 +6,93 @@ import {
   Transaction,
 } from "@solana/web3.js";
 import { useState } from "react";
-import { Buffer } from "buffer"; // to fix nodejs error
-window.Buffer = Buffer;
+import { Buffer } from "buffer";
 import toast from "react-hot-toast";
+import { SendIcon } from "lucide-react";
+import { motion } from "framer-motion";
+
+window.Buffer = Buffer;
 
 export default function SendSol() {
   const wallet = useWallet();
   const { connection } = useConnection();
   const [to, setTo] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
 
-  async function Send() {
+  async function handleSend() {
+    if (!wallet.publicKey || !wallet.signTransaction) {
+      toast.error("Wallet not connected");
+      return;
+    }
+
     try {
       const transaction = new Transaction();
       transaction.add(
         SystemProgram.transfer({
           fromPubkey: wallet.publicKey,
           toPubkey: new PublicKey(to),
-          lamports: Number(amount * LAMPORTS_PER_SOL),
+          lamports: Number(parseFloat(amount) * LAMPORTS_PER_SOL),
         })
       );
+
       await wallet.sendTransaction(transaction, connection);
-      toast.success("Sent " + amount + " SOL");
-    } catch (e) {
-      console.log(e);
-      toast.error("an error occured");
+      toast.success(`Sent ${amount} SOL to ${to}`);
+    } catch (error) {
+      console.error(error);
+      toast.error("Transaction failed");
     }
   }
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">
-          Send SOL
-        </h2>
-
-        <div className="mb-4">
+    <motion.div
+      className="bg-gray-800 p-6 rounded-lg shadow-lg border border-blue-900"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.9 }}
+    >
+      <h2 className="text-2xl font-semibold mb-4 text-blue-400 flex items-center">
+        <SendIcon className="mr-2" /> Send SOL
+      </h2>
+      <div className="space-y-4">
+        <div>
           <label
             htmlFor="to"
-            className="block text-sm font-medium text-gray-300 mb-2"
+            className="block text-sm font-medium text-blue-300 mb-1"
           >
             Recipient Address
           </label>
           <input
             id="to"
             type="text"
-            className="block w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-2 bg-gray-700 border border-blue-900 rounded text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter recipient address"
             onChange={(e) => setTo(e.target.value)}
           />
         </div>
-
-        <div className="mb-6">
+        <div>
           <label
             htmlFor="amount"
-            className="block text-sm font-medium text-gray-300 mb-2"
+            className="block text-sm font-medium text-blue-300 mb-1"
           >
             Amount (SOL)
           </label>
           <input
             id="amount"
             type="number"
-            className="block w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            step="0.000000001"
+            className="w-full p-2 bg-gray-700 border border-blue-900 rounded text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter amount"
             onChange={(e) => setAmount(e.target.value)}
           />
         </div>
-
         <button
-          onClick={Send}
-          className="w-full py-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-500 transition duration-300"
-          disabled={!wallet.connected}
+          onClick={handleSend}
+          disabled={!wallet.connected || !to || !amount}
+          className="w-full py-2 px-4 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
         >
           {wallet.connected ? "Send SOL" : "Connect Wallet"}
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
