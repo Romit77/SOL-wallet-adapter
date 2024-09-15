@@ -9,7 +9,7 @@ import {
 } from "@solana/wallet-adapter-react-ui";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { Toaster } from "react-hot-toast";
-import SendTokens from "./Airdrop";
+import SendTokens from "./SendTokens";
 import UserBalance from "./UserBalance";
 import SignMessage from "./SignMessage";
 import SendSol from "./SendSol";

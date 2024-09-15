@@ -23,11 +23,10 @@ export default function SendTokens() {
     }
 
     try {
-      const signature = await connection.requestAirdrop(
+      await connection.requestAirdrop(
         wallet.publicKey,
         parsedAmount * LAMPORTS_PER_SOL
       );
-      await connection.confirmTransaction(signature, "processed");
       toast.success(
         `Airdropped ${amount} SOL to ${wallet.publicKey.toBase58()}`
       );
