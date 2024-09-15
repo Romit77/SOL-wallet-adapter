@@ -9,7 +9,7 @@ import {
 } from "@solana/wallet-adapter-react-ui";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { Toaster } from "react-hot-toast";
-import Airdrop from "./Airdrop";
+import SendTokens from "./Airdrop";
 import UserBalance from "./UserBalance";
 import SignMessage from "./SignMessage";
 import SendSol from "./SendSol";
@@ -43,7 +43,7 @@ export default function Wallet() {
               </header>
               <main className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <UserBalance />
-                <Airdrop />
+                <SendTokens />
                 <SignMessage />
                 <SendSol />
               </main>

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { CloudIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function Airdrop() {
+export default function SendTokens() {
   const wallet = useWallet();
   const { connection } = useConnection();
   const [amount, setAmount] = useState("");
