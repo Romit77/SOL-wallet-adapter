@@ -11,9 +11,6 @@ This project is a React.js web application designed to interact with the Solana 
 - **Check Balance**: Instantly check the SOL balance of your connected wallet.
 - **Sign Messages**: Securely sign and verify messages using your wallet.
 
-## Demo
-
-[Link](https://sol-adapter.vercel.app/)
 
 ## Tech Stack
 
@@ -62,7 +59,8 @@ Make sure you have the following installed:
 
 ## Screenshots
 
-![image](https://github.com/user-attachments/assets/e24b6ec7-30c4-4698-a7f6-2986df82f5ac)
+![image](https://github.com/user-attachments/assets/aba7793e-1bb3-43d7-9056-c595721016c4)
+
 
 
    
